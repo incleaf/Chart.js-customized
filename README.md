@@ -7,7 +7,7 @@ All of logics are same except these options I've added
 	enableXLabelRotation: true,
 	drawXAxisTicks: true,
 	drawYAxisTicks: true,
-	xAxisFilter: function(){ return true; },
-	yAxisFilter: function(){ return true; },
+	xAxisFilter: function(label, index){ return true; },
+	yAxisFilter: function(label, index){ return true; },
 }
 ```
