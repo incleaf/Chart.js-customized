@@ -186,6 +186,9 @@
 			// Custom options created by @incleaf from here -------------------------------------
 			enableXLabelRotation: true,
 			drawXAxisTicks: true,
+			drawYAxisTicks: true,
+			xAxisFilter: function(){ return true; },
+			yAxisFilter: function(){ return true; },
 		}
 	};
 
@@ -1740,7 +1743,7 @@
 
 					ctx.textAlign = "right";
 					ctx.textBaseline = "middle";
-					if (this.showLabels){
+					if (this.showLabels && this.yAxisFilter.apply(null, arguments) === true) {
 						ctx.fillText(labelString,xStart - 10,yLabelCenter);
 					}
 
@@ -1772,13 +1775,15 @@
 						ctx.closePath();
 					}
 
-					ctx.lineWidth = this.lineWidth;
-					ctx.strokeStyle = this.lineColor;
-					ctx.beginPath();
-					ctx.moveTo(xStart - 5, linePositionY);
-					ctx.lineTo(xStart, linePositionY);
-					ctx.stroke();
-					ctx.closePath();
+					if (this.drawYAxisTicks) {
+						ctx.lineWidth = this.lineWidth;
+						ctx.strokeStyle = this.lineColor;
+						ctx.beginPath();
+						ctx.moveTo(xStart - 5, linePositionY);
+						ctx.lineTo(xStart, linePositionY);
+						ctx.stroke();
+						ctx.closePath();
+					}
 				},this);
 
 				each(this.xLabels,function(label,index){
@@ -1814,7 +1819,6 @@
 						ctx.closePath();
 					}
 
-
 					ctx.lineWidth = this.lineWidth;
 					ctx.strokeStyle = this.lineColor;
 
@@ -1834,7 +1838,11 @@
 					ctx.font = this.font;
 					ctx.textAlign = (isRotated) ? "right" : "center";
 					ctx.textBaseline = (isRotated) ? "middle" : "top";
-					ctx.fillText(label, 0, 0);
+					if (typeof this.xAxisFilter === 'function') {
+						if (this.xAxisFilter.apply(null, arguments) === true) {
+							ctx.fillText(label, 0, 0);
+						}
+					}
 					ctx.restore();
 				},this);
 
@@ -2920,7 +2928,6 @@
 			return pointsArray;
 		},
 		buildScale : function(labels){
-			debugger;
 			var self = this;
 
 			var dataTotal = function(){
@@ -2967,7 +2974,10 @@
 				showLabels : this.options.scaleShowLabels,
 				display : this.options.showScale,
 				enableXLabelRotation: this.options.enableXLabelRotation,
-				drawXAxisTicks: this.options.drawXAxisTicks
+				drawXAxisTicks: this.options.drawXAxisTicks,
+				drawYAxisTicks: this.options.drawYAxisTicks,
+				xAxisFilter: this.options.xAxisFilter,
+				yAxisFilter: this.options.yAxisFilter
 			};
 
 			if (this.options.scaleOverride){

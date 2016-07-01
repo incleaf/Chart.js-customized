@@ -210,6 +210,7 @@
 				display : this.options.showScale,
 				enableXLabelRotation: this.options.enableXLabelRotation,
 				drawXAxisTicks: this.options.drawXAxisTicks,
+				drawYAxisTicks: this.options.drawYAxisTicks,
 				xAxisFilter: this.options.xAxisFilter,
 				yAxisFilter: this.options.yAxisFilter
 			};

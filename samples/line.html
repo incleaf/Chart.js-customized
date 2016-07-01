@@ -5,14 +5,69 @@
 		<script src="../Chart.js"></script>
 	</head>
 	<body>
+		<canvas id="canvas" height="450" width="600"></canvas>
 		<div style="width:30%">
 			<div>
-				<canvas id="canvas" height="450" width="600"></canvas>
 			</div>
 		</div>
 
 
 	<script>
+		function rand(min, max, num) {
+			var rtn = [];
+			while (rtn.length < num) {
+				rtn.push((Math.random() * (max - min)) + min);
+			}
+			return rtn;
+		}
+		const getLabel = (days) => {
+			const result = [];
+			while (days > 0) {
+				result.push(days);
+//				if (days % 30 === 0) {
+//					result.push('afsdafsd');
+//				} else {
+//					result.push('');
+//				}
+				days--;
+				// result.push(moment().startOf('day').subtract(days--, 'days').unix());
+			}
+			return result;
+		};
+		var data = {
+			labels: getLabel(90),
+			datasets: [
+				{
+					label: "My First dataset",
+					fillColor: "rgba(220,220,220,0.2)",
+					fillColor: "transparent",
+					strokeColor: "rgba(220,220,220,1)",
+					// pointColor: "rgba(220,220,220,1)",
+					pointStrokeColor: "transparent",
+					pointHighlightFill: "transparent",
+					pointHighlightStroke: "transparent",
+					data: rand(32, 1000, 90)
+				},
+				{
+					label: "My Second dataset",
+					// fillColor: "rgba(151,187,205,0.2)",
+					fillColor: "transparent",
+					strokeColor: "rgba(151,187,205,1)",
+					// pointColor: "rgba(151,187,205,1)",
+					pointStrokeColor: "transparent",
+					pointHighlightFill: "transparent",
+					pointHighlightStroke: "transparent",
+					data: rand(32, 1000, 90)
+				}
+			]
+		};
+		const options = {
+					responsive: true,
+					scaleSteps: true,
+					labelsFilter: (val, index) => {
+					return false;
+		}
+		};
 		var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
 		var lineChartData = {
 			labels : ["January","February","March","April","May","June","July"],
@@ -43,8 +98,17 @@
 
 	window.onload = function(){
 		var ctx = document.getElementById("canvas").getContext("2d");
-		window.myLine = new Chart(ctx).Line(lineChartData, {
-			responsive: true
+		window.myLine = new Chart(ctx).Line(data, {
+			responsive: true,
+			scaleShowVerticalLines: false,
+			showTooltips: false,
+			enableXLabelRotation: false,
+			drawXAxisTicks: false,
+			xAxisFilter: function(label, index) {
+				return index % 30 === 0;
+			},
+			drawYAxisTicks: false
+//			scaleLineColor: 'rgba(0, 0, 0, 0)'
 		});
 	}
 

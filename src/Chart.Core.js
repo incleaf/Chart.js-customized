@@ -186,6 +186,7 @@
 			// Custom options created by @incleaf from here -------------------------------------
 			enableXLabelRotation: true,
 			drawXAxisTicks: true,
+			drawYAxisTicks: true,
 			xAxisFilter: function(){ return true; },
 			yAxisFilter: function(){ return true; },
 		}
@@ -1774,13 +1775,15 @@
 						ctx.closePath();
 					}
 
-					ctx.lineWidth = this.lineWidth;
-					ctx.strokeStyle = this.lineColor;
-					ctx.beginPath();
-					ctx.moveTo(xStart - 5, linePositionY);
-					ctx.lineTo(xStart, linePositionY);
-					ctx.stroke();
-					ctx.closePath();
+					if (this.drawYAxisTicks) {
+						ctx.lineWidth = this.lineWidth;
+						ctx.strokeStyle = this.lineColor;
+						ctx.beginPath();
+						ctx.moveTo(xStart - 5, linePositionY);
+						ctx.lineTo(xStart, linePositionY);
+						ctx.stroke();
+						ctx.closePath();
+					}
 				},this);
 
 				each(this.xLabels,function(label,index){
