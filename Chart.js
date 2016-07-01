@@ -185,6 +185,7 @@
 
 			// Custom options created by @incleaf from here -------------------------------------
 			enableXLabelRotation: true,
+			drawXAxisTicks: true,
 		}
 	};
 
@@ -1778,7 +1779,6 @@
 					ctx.lineTo(xStart, linePositionY);
 					ctx.stroke();
 					ctx.closePath();
-
 				},this);
 
 				each(this.xLabels,function(label,index){
@@ -1820,11 +1820,13 @@
 
 
 					// Small lines at the bottom of the base grid line
-					ctx.beginPath();
-					ctx.moveTo(linePos,this.endPoint);
-					ctx.lineTo(linePos,this.endPoint + 5);
-					ctx.stroke();
-					ctx.closePath();
+					if (this.drawXAxisTicks) {
+						ctx.beginPath();
+						ctx.moveTo(linePos,this.endPoint);
+						ctx.lineTo(linePos,this.endPoint + 5);
+						ctx.stroke();
+						ctx.closePath();
+					}
 
 					ctx.save();
 					ctx.translate(xPos,(isRotated) ? this.endPoint + 12 : this.endPoint + 8);
@@ -2918,6 +2920,7 @@
 			return pointsArray;
 		},
 		buildScale : function(labels){
+			debugger;
 			var self = this;
 
 			var dataTotal = function(){
@@ -2963,7 +2966,8 @@
 				padding: (this.options.showScale) ? 0 : this.options.pointDotRadius + this.options.pointDotStrokeWidth,
 				showLabels : this.options.scaleShowLabels,
 				display : this.options.showScale,
-				enableXLabelRotation: this.options.enableXLabelRotation
+				enableXLabelRotation: this.options.enableXLabelRotation,
+				drawXAxisTicks: this.options.drawXAxisTicks
 			};
 
 			if (this.options.scaleOverride){
