@@ -163,7 +163,6 @@
 			return pointsArray;
 		},
 		buildScale : function(labels){
-			debugger;
 			var self = this;
 
 			var dataTotal = function(){
@@ -210,7 +209,8 @@
 				showLabels : this.options.scaleShowLabels,
 				display : this.options.showScale,
 				enableXLabelRotation: this.options.enableXLabelRotation,
-				drawXAxisTicks: this.options.drawXAxisTicks
+				drawXAxisTicks: this.options.drawXAxisTicks,
+				xAxisFilter: this.options.xAxisFilter,
 			};
 
 			if (this.options.scaleOverride){

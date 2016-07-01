@@ -186,6 +186,7 @@
 			// Custom options created by @incleaf from here -------------------------------------
 			enableXLabelRotation: true,
 			drawXAxisTicks: true,
+			xAxisFilter: function(){},
 		}
 	};
 
@@ -1834,7 +1835,11 @@
 					ctx.font = this.font;
 					ctx.textAlign = (isRotated) ? "right" : "center";
 					ctx.textBaseline = (isRotated) ? "middle" : "top";
-					ctx.fillText(label, 0, 0);
+					if (typeof this.xAxisFilter === 'function') {
+						if (this.xAxisFilter.apply(null, arguments) === true) {
+							ctx.fillText(label, 0, 0);
+						}
+					}
 					ctx.restore();
 				},this);
 
