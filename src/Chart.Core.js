@@ -186,7 +186,8 @@
 			// Custom options created by @incleaf from here -------------------------------------
 			enableXLabelRotation: true,
 			drawXAxisTicks: true,
-			xAxisFilter: function(){},
+			xAxisFilter: function(){ return true; },
+			yAxisFilter: function(){ return true; },
 		}
 	};
 
@@ -1741,7 +1742,7 @@
 
 					ctx.textAlign = "right";
 					ctx.textBaseline = "middle";
-					if (this.showLabels){
+					if (this.showLabels && this.yAxisFilter.apply(null, arguments) === true) {
 						ctx.fillText(labelString,xStart - 10,yLabelCenter);
 					}
 
@@ -1814,7 +1815,6 @@
 						ctx.stroke();
 						ctx.closePath();
 					}
-
 
 					ctx.lineWidth = this.lineWidth;
 					ctx.strokeStyle = this.lineColor;

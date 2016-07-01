@@ -211,6 +211,7 @@
 				enableXLabelRotation: this.options.enableXLabelRotation,
 				drawXAxisTicks: this.options.drawXAxisTicks,
 				xAxisFilter: this.options.xAxisFilter,
+				yAxisFilter: this.options.yAxisFilter
 			};
 
 			if (this.options.scaleOverride){
