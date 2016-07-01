@@ -8,3 +8,4 @@ coverage/*
 docs/index.md
 
 .settings/
+.idea
