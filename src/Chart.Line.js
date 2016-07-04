@@ -214,6 +214,8 @@
 				xAxisFilter: this.options.xAxisFilter,
 				yAxisFilter: this.options.yAxisFilter,
 				xAxisFormatter: this.options.xAxisFormatter,
+				enableRightPaddingAutoScaling: this.options.enableRightPaddingAutoScaling,
+				adjustPaddingMatched: this.options.adjustPaddingMatched,
 			};
 
 			if (this.options.scaleOverride){

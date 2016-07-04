@@ -105,6 +105,8 @@
 			enableXLabelRotation: false,
 			drawXAxisTicks: false,
 			drawYAxisTicks: false,
+			enableRightPaddingAutoScaling: false,
+			adjustPaddingMatched: true,
 			xAxisFilter: function(label, index) {
 				return index % 30 === 0 || index === 89;
 			},
@@ -112,7 +114,7 @@
 				return Number(label) % 1000 === 0;
 			},
 			xAxisFormatter: function(string) {
-				return new Date(string);
+				return '10월 11일';
 			},
 		});
 	}

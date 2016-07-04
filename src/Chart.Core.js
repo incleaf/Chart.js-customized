@@ -189,7 +189,9 @@
 			drawYAxisTicks: true,
 			xAxisFilter: function(){ return true; },
 			yAxisFilter: function(){ return true; },
-			xAxisFormatter: function(string) { return string; }, 
+			xAxisFormatter: function(string) { return string; },
+			enableRightPaddingAutoScaling: true,
+			adjustPaddingMatched: false,
 		}
 	};
 
@@ -1660,8 +1662,20 @@
 				lastRotated;
 
 
-			this.xScalePaddingRight = lastWidth/2 + 3;
-			this.xScalePaddingLeft = (firstWidth/2 > this.yLabelWidth) ? firstWidth/2 : this.yLabelWidth;
+			var cachedXScalePaddingRight = this.enableRightPaddingAutoScaling ? lastWidth/2 + 3 : 0;
+			var cachedXScalePaddingLeft = (firstWidth/2 > this.yLabelWidth) ? firstWidth/2 : this.yLabelWidth;
+
+			if (this.adjustPaddingMatched) {
+				this.xScalePaddingLeft = cachedXScalePaddingLeft > cachedXScalePaddingRight
+					? cachedXScalePaddingLeft
+					: cachedXScalePaddingRight;
+				this.xScalePaddingRight = cachedXScalePaddingLeft > cachedXScalePaddingRight
+					? cachedXScalePaddingLeft
+					: cachedXScalePaddingRight;
+			} else {
+				this.xScalePaddingLeft = cachedXScalePaddingLeft;
+				this.xScalePaddingRight = cachedXScalePaddingRight;
+			}
 
 			this.xLabelRotation = 0;
 			if (this.display){
