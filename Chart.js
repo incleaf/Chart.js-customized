@@ -1873,7 +1873,7 @@
 					ctx.textAlign = (isRotated) ? "right" : "center";
 					ctx.textBaseline = (isRotated) ? "middle" : "top";
 					if (drawVerticalLine) {
-						ctx.fillText('12월 31일', 0, 0);
+						ctx.fillText(this.xAxisFormatter.call(null, label), 0, 0);
 					}
 					ctx.restore();
 				},this);
