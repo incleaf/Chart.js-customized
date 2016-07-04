@@ -1670,7 +1670,7 @@
 
 			// 양쪽 margin 값들 하드코딩 되어있음!!! 조심!
 			this.xScalePaddingLeft = 10;
-			this.xScalePaddingRight = 10;
+			this.xScalePaddingRight = 1;
 			// if (this.adjustPaddingMatched) {
 			// 	this.xScalePaddingLeft = cachedXScalePaddingLeft > cachedXScalePaddingRight
 			// 		? cachedXScalePaddingLeft
@@ -1841,7 +1841,7 @@
 
 					if (drawVerticalLine){
 						ctx.moveTo(linePos,this.endPoint);
-						ctx.lineTo(linePos,this.startPoint - 3);
+						ctx.lineTo(linePos,this.startPoint);
 						ctx.stroke();
 						ctx.closePath();
 					}
@@ -1863,7 +1863,7 @@
 					if (index === 0) {
 						labelMargin = 10;
 					} else if (xLabelsLength -1 === index) {
-						labelMargin = -10;
+						labelMargin = -22;
 					} else {
 						labelMargin = 0;
 					}
@@ -1873,7 +1873,7 @@
 					ctx.textAlign = (isRotated) ? "right" : "center";
 					ctx.textBaseline = (isRotated) ? "middle" : "top";
 					if (drawVerticalLine) {
-						ctx.fillText(this.xAxisFormatter.call(null, label), 0, 0);
+						ctx.fillText('12월 31일', 0, 0);
 					}
 					ctx.restore();
 				},this);
