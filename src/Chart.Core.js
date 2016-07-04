@@ -1754,6 +1754,12 @@
 				xStart = Math.round(this.xScalePaddingLeft),
 				xLabelsLength = this.xLabels.length;
 			if (this.display){
+        // Fill Background Color
+        // ctx.save();
+        // ctx.fillStyle = '#fff2cf';
+        // ctx.fillRect(xStart, this.startPoint, this.width, this.endPoint - 10);
+        // ctx.restore();
+
 				ctx.fillStyle = this.textColor;
 				ctx.font = this.font;
 				each(this.yLabels,function(labelString,index){
@@ -1811,7 +1817,7 @@
 						// Check to see if line/bar here and decide where to place the line
 						linePos = this.calculateX(index - (this.offsetGridLines ? 0.5 : 0)) + aliasPixel(this.lineWidth),
 						isRotated = (this.xLabelRotation > 0),
-						drawVerticalLine = this.showVerticalLines,
+						drawVerticalLine = this.showVerticalLines && this.xAxisFilter.apply(null, arguments) === true,
 						labelMargin;
 
 					// This is Y axis, so draw it
@@ -1866,7 +1872,7 @@
 					ctx.font = this.font;
 					ctx.textAlign = (isRotated) ? "right" : "center";
 					ctx.textBaseline = (isRotated) ? "middle" : "top";
-					if (this.xAxisFilter.apply(null, arguments) === true) {
+					if (drawVerticalLine) {
 						ctx.fillText(this.xAxisFormatter.call(null, label), 0, 0);
 					}
 					ctx.restore();
