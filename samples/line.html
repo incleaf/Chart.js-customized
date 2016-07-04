@@ -105,6 +105,8 @@
 	window.onload = function(){
 		var ctx = document.getElementById("canvas").getContext("2d");
 		window.myLine = new Chart(ctx).Line(data, {
+			scaleShowLabels: false,
+			scaleFontSize: 10,
 			scaleOverride : true,
 			scaleSteps : 5,
 			scaleStepWidth : 200,

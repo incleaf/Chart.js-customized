@@ -1668,18 +1668,18 @@
 			var cachedXScalePaddingLeft = this.yLabelWidth; // 위에 주석처리 되어있는 소스가 원본
 
 
-			if (this.adjustPaddingMatched) {
-				this.xScalePaddingLeft = cachedXScalePaddingLeft > cachedXScalePaddingRight
-					? cachedXScalePaddingLeft
-					: cachedXScalePaddingRight;
-				this.xScalePaddingRight = cachedXScalePaddingLeft > cachedXScalePaddingRight
-					? cachedXScalePaddingLeft
-					: cachedXScalePaddingRight;
-			} else {
-				// XXX: 양쪽 margin 값들 하드코딩 되어있음
-				this.xScalePaddingLeft = this.yLabelWidth * 0.8;
-				this.xScalePaddingRight = this.yLabelWidth;
-			}
+			// 양쪽 margin 값들 하드코딩 되어있음!!! 조심!
+			this.xScalePaddingLeft = 10;
+			this.xScalePaddingRight = 10;
+			// if (this.adjustPaddingMatched) {
+			// 	this.xScalePaddingLeft = cachedXScalePaddingLeft > cachedXScalePaddingRight
+			// 		? cachedXScalePaddingLeft
+			// 		: cachedXScalePaddingRight;
+			// 	this.xScalePaddingRight = cachedXScalePaddingLeft > cachedXScalePaddingRight
+			// 		? cachedXScalePaddingLeft
+			// 		: cachedXScalePaddingRight;
+			// } else {
+			// }
 
 			this.xLabelRotation = 0;
 			if (this.display){
@@ -1751,7 +1751,8 @@
 		draw : function(){
 			var ctx = this.ctx,
 				yLabelGap = (this.endPoint - this.startPoint) / this.steps,
-				xStart = Math.round(this.xScalePaddingLeft);
+				xStart = Math.round(this.xScalePaddingLeft),
+				xLabelsLength = this.xLabels.length;
 			if (this.display){
 				ctx.fillStyle = this.textColor;
 				ctx.font = this.font;
@@ -1762,7 +1763,6 @@
 
 					ctx.textAlign = "right";
 					ctx.textBaseline = "middle";
-					ctx.font = fontString(this.fontSize * 0.8 ,this.fontStyle, this.fontFamily);
 					if (this.showLabels && this.yAxisFilter.apply(null, arguments) === true) {
 						ctx.fillText(labelString, xStart - 10, yLabelCenter);
 					}
@@ -1811,7 +1811,8 @@
 						// Check to see if line/bar here and decide where to place the line
 						linePos = this.calculateX(index - (this.offsetGridLines ? 0.5 : 0)) + aliasPixel(this.lineWidth),
 						isRotated = (this.xLabelRotation > 0),
-						drawVerticalLine = this.showVerticalLines;
+						drawVerticalLine = this.showVerticalLines,
+						labelMargin;
 
 					// This is Y axis, so draw it
 					if (index === 0 && !drawVerticalLine){
@@ -1853,7 +1854,14 @@
 					}
 
 					ctx.save();
-					ctx.translate(xPos,(isRotated) ? this.endPoint + 12 : this.endPoint + 8);
+					if (index === 0) {
+						labelMargin = 10;
+					} else if (xLabelsLength -1 === index) {
+						labelMargin = -10;
+					} else {
+						labelMargin = 0;
+					}
+					ctx.translate(xPos + labelMargin ,(isRotated) ? this.endPoint + 12 : this.endPoint + 8);
 					ctx.rotate(toRadians(this.xLabelRotation)*-1);
 					ctx.font = this.font;
 					ctx.textAlign = (isRotated) ? "right" : "center";
