@@ -1663,7 +1663,10 @@
 
 
 			var cachedXScalePaddingRight = this.enableRightPaddingAutoScaling ? lastWidth/2 + 3 : 0;
-			var cachedXScalePaddingLeft = (firstWidth/2 > this.yLabelWidth) ? firstWidth/2 : this.yLabelWidth;
+
+			// var cachedXScalePaddingLeft = (firstWidth/2 > this.yLabelWidth) ? firstWidth/2 : this.yLabelWidth;
+			var cachedXScalePaddingLeft = this.yLabelWidth; // 위에 주석처리 되어있는 소스가 원본
+
 
 			if (this.adjustPaddingMatched) {
 				this.xScalePaddingLeft = cachedXScalePaddingLeft > cachedXScalePaddingRight
@@ -1673,8 +1676,9 @@
 					? cachedXScalePaddingLeft
 					: cachedXScalePaddingRight;
 			} else {
-				this.xScalePaddingLeft = cachedXScalePaddingLeft;
-				this.xScalePaddingRight = cachedXScalePaddingRight;
+				// XXX: 양쪽 margin 값들 하드코딩 되어있음
+				this.xScalePaddingLeft = this.yLabelWidth * 0.8;
+				this.xScalePaddingRight = this.yLabelWidth;
 			}
 
 			this.xLabelRotation = 0;
@@ -1758,6 +1762,7 @@
 
 					ctx.textAlign = "right";
 					ctx.textBaseline = "middle";
+					ctx.font = fontString(this.fontSize * 0.8 ,this.fontStyle, this.fontFamily);
 					if (this.showLabels && this.yAxisFilter.apply(null, arguments) === true) {
 						ctx.fillText(labelString, xStart - 10, yLabelCenter);
 					}

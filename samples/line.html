@@ -16,7 +16,19 @@
 		function rand(min, max, num) {
 			var rtn = [];
 			while (rtn.length < num) {
-				rtn.push((Math.random() * (max - min)) + min);
+				if (rtn.length === 0) {
+					rtn.push(300);
+				} else {
+					var rand = Math.floor(Math.random()*99) + 1; // this will get a number between 1 and 99;
+					rand *= Math.floor(Math.random()*2) == 1 ? 1 : -1;
+					if (rtn[rtn.length - 1] + rand > 1000) {
+						rtn.push(1000);
+					} else if (rtn[rtn.length - 1] + rand < 0) {
+						rtn.push(0);
+					} else {
+						rtn.push(rtn[rtn.length - 1] + rand);
+					}
+				}
 			}
 			return rtn;
 		}
@@ -24,13 +36,7 @@
 			const result = [];
 			while (days > 0) {
 				result.push(new Date(2016, 6, -1 * days).getTime());
-//				if (days % 30 === 0) {
-//					result.push('afsdafsd');
-//				} else {
-//					result.push('');
-//				}
 				days--;
-				// result.push(moment().startOf('day').subtract(days--, 'days').unix());
 			}
 			return result;
 		};
@@ -99,14 +105,18 @@
 	window.onload = function(){
 		var ctx = document.getElementById("canvas").getContext("2d");
 		window.myLine = new Chart(ctx).Line(data, {
+			scaleOverride : true,
+			scaleSteps : 5,
+			scaleStepWidth : 200,
+			scaleStartValue : 0,
 			responsive: true,
 			scaleShowVerticalLines: false,
 			showTooltips: false,
 			enableXLabelRotation: false,
 			drawXAxisTicks: false,
 			drawYAxisTicks: false,
-			enableRightPaddingAutoScaling: false,
-			adjustPaddingMatched: true,
+			enableRightPaddingAutoScaling: true,
+//			adjustPaddingMatched: true,
 			xAxisFilter: function(label, index) {
 				return index % 30 === 0 || index === 89;
 			},
@@ -114,7 +124,7 @@
 				return Number(label) % 1000 === 0;
 			},
 			xAxisFormatter: function(string) {
-				return '10월 11일';
+				return '10/11';
 			},
 		});
 	}
