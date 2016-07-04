@@ -189,6 +189,7 @@
 			drawYAxisTicks: true,
 			xAxisFilter: function(){ return true; },
 			yAxisFilter: function(){ return true; },
+			xAxisFormatter: function(string) { return string; }, 
 		}
 	};
 
@@ -1744,7 +1745,7 @@
 					ctx.textAlign = "right";
 					ctx.textBaseline = "middle";
 					if (this.showLabels && this.yAxisFilter.apply(null, arguments) === true) {
-						ctx.fillText(labelString,xStart - 10,yLabelCenter);
+						ctx.fillText(labelString, xStart - 10, yLabelCenter);
 					}
 
 					// This is X axis, so draw it
@@ -1838,10 +1839,8 @@
 					ctx.font = this.font;
 					ctx.textAlign = (isRotated) ? "right" : "center";
 					ctx.textBaseline = (isRotated) ? "middle" : "top";
-					if (typeof this.xAxisFilter === 'function') {
-						if (this.xAxisFilter.apply(null, arguments) === true) {
-							ctx.fillText(label, 0, 0);
-						}
+					if (this.xAxisFilter.apply(null, arguments) === true) {
+						ctx.fillText(this.xAxisFormatter.call(null, label), 0, 0);
 					}
 					ctx.restore();
 				},this);
@@ -2977,7 +2976,8 @@
 				drawXAxisTicks: this.options.drawXAxisTicks,
 				drawYAxisTicks: this.options.drawYAxisTicks,
 				xAxisFilter: this.options.xAxisFilter,
-				yAxisFilter: this.options.yAxisFilter
+				yAxisFilter: this.options.yAxisFilter,
+				xAxisFormatter: this.options.xAxisFormatter,
 			};
 
 			if (this.options.scaleOverride){

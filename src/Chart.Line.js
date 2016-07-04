@@ -212,7 +212,8 @@
 				drawXAxisTicks: this.options.drawXAxisTicks,
 				drawYAxisTicks: this.options.drawYAxisTicks,
 				xAxisFilter: this.options.xAxisFilter,
-				yAxisFilter: this.options.yAxisFilter
+				yAxisFilter: this.options.yAxisFilter,
+				xAxisFormatter: this.options.xAxisFormatter,
 			};
 
 			if (this.options.scaleOverride){

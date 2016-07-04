@@ -23,7 +23,7 @@
 		const getLabel = (days) => {
 			const result = [];
 			while (days > 0) {
-				result.push(days);
+				result.push(new Date(2016, 6, -1 * days).getTime());
 //				if (days % 30 === 0) {
 //					result.push('afsdafsd');
 //				} else {
@@ -104,11 +104,16 @@
 			showTooltips: false,
 			enableXLabelRotation: false,
 			drawXAxisTicks: false,
+			drawYAxisTicks: false,
 			xAxisFilter: function(label, index) {
-				return index % 30 === 0;
+				return index % 30 === 0 || index === 89;
 			},
-			drawYAxisTicks: false
-//			scaleLineColor: 'rgba(0, 0, 0, 0)'
+			yAxisFilter: function(label, index) {
+				return Number(label) % 1000 === 0;
+			},
+			xAxisFormatter: function(string) {
+				return new Date(string);
+			},
 		});
 	}
 
