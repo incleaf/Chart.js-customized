@@ -192,6 +192,7 @@
 			xAxisFormatter: function(string) { return string; },
 			enableRightPaddingAutoScaling: true,
 			adjustPaddingMatched: false,
+			gridBackgroundColor: 'rgba(0, 0, 0, 0)'
 		}
 	};
 
@@ -1755,10 +1756,10 @@
 				xLabelsLength = this.xLabels.length;
 			if (this.display){
         // Fill Background Color
-        // ctx.save();
-        // ctx.fillStyle = '#fff2cf';
-        // ctx.fillRect(xStart, this.startPoint, this.width, this.endPoint - 10);
-        // ctx.restore();
+        ctx.save();
+        ctx.fillStyle = this.gridBackgroundColor;
+        ctx.fillRect(xStart, this.startPoint, this.width, this.endPoint - 10);
+        ctx.restore();
 
 				ctx.fillStyle = this.textColor;
 				ctx.font = this.font;

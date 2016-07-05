@@ -217,6 +217,7 @@
 				xAxisFormatter: this.options.xAxisFormatter,
 				enableRightPaddingAutoScaling: this.options.enableRightPaddingAutoScaling,
 				adjustPaddingMatched: this.options.adjustPaddingMatched,
+				gridBackgroundColor: this.options.gridBackgroundColor,
 			};
 
 			if (this.options.scaleOverride){
